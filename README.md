@@ -22,7 +22,7 @@ A lightweight, dependency-free JavaScript library for creating draggable, resiza
 
 ### CDN
 ```html
-<script src="https://cdn.jsdelivr.net/gh/YOUR_USERNAME/floating-windows@1.0.1/dist/floating-windows.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/kyubea/floating-windows@1.0.1/dist/floating-windows.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/kyubea/floating-windows@1.0.1/dist/floating-windows.min.css">
 ```
 
