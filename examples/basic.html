@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FloatingWindows Test</title>
+  <link rel="stylesheet" href="floating-windows.css">
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: #f0f0f0;
+      font-family: system-ui, sans-serif;
+    }
+    .test-controls {
+      padding: 20px;
+      background: #fff;
+      border-bottom: 1px solid #ddd;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .test-controls button {
+      padding: 8px 16px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="test-controls">
+    <button onclick="createTestWindow()">New Window</button>
+    <button onclick="wm.minimizeAll()">Minimize All</button>
+    <button onclick="wm.restoreAll()">Restore All</button>
+    <button onclick="wm.closeAll()">Close All</button>
+    <button onclick="wm.clearStorage(); location.reload();">Clear Storage & Reload</button>
+  </div>
+
+  <script src="floating-windows.js"></script>
+  <script>
+    // Initializes the manager
+    const wm = new FloatingWindows({
+      dockAnchor: '.test-controls'
+    });
+
+    let windowCount = 0;
+
+    function createTestWindow() {
+      windowCount++;
+      const win = wm.create('Window ' + windowCount, {
+        content: `
+          <p>This is window!! #${windowCount}</p>
+          <p>Try dragging me around!</p>
+          <p>For snapping functionality, drag near other windows, or to the edge of the viewport.</p>
+          <p>Holding Shift while dragging will disable snap.</p>
+        `,
+        position: { 
+          x: 50 + (windowCount * 30), 
+          y: 100 + (windowCount * 30) 
+        },
+        size: { width: 280, height: 200 }
+      });
+      
+      console.log('Created window:', win.id);
+    }
+
+    // Creates windows on load for demonstration
+    createTestWindow();
+    createTestWindow();
+  </script>
+</body>
+</html>
