@@ -1,0 +1,360 @@
+/**
+ * FloatingWindows - Default Theme
+ * 
+ * This stylesheet provides visual styling for floating windows.
+ * FloatingWindows is not dependent on this stylesheet, however.
+ * Feel free to customize or replace entirely! ^^
+ */
+
+/* ~~~
+   WINDOW
+   ~~~
+*/
+.fw-window {
+  background: #ffffff;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  box-shadow: 
+    0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 14px;
+}
+
+.fw-window[data-fw-active="true"] {
+  box-shadow: 
+    0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -4px rgba(0, 0, 0, 0.1);
+}
+
+/* ~~~
+   HEADER
+   ~~~
+*/
+.fw-header {
+  padding: 10px 12px;
+  background: linear-gradient(to bottom, #f9fafb 0%, #f3f4f6 100%);
+  border-bottom: 1px solid #e5e7eb;
+  border-radius: 8px 8px 0 0;
+}
+
+.fw-title {
+  font-weight: 600;
+  color: #111827;
+  font-size: 13px;
+}
+
+/* ~~~
+   CONTROL BUTTONS
+   ~~~
+*/
+.fw-btn {
+  width: 24px;
+  height: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  font-size: 14px;
+  color: #6b7280;
+  transition: background 120ms ease, color 120ms ease;
+}
+
+.fw-btn:hover {
+  background: rgba(0, 0, 0, 0.06);
+  color: #374151;
+}
+
+.fw-btn-close:hover {
+  background: #ef4444;
+  color: white;
+}
+
+.fw-btn-minimize:hover {
+  background: #f59e0b;
+  color: white;
+}
+
+/* ~~~
+   BODY
+   ~~~
+*/
+.fw-body {
+  padding: 12px;
+  color: #374151;
+  line-height: 1.5;
+  background: #ffffff;
+  border-radius: 0 0 8px 8px;
+}
+
+.fw-body p {
+  margin: 0 0 0.75em 0;
+}
+
+.fw-body p:last-child {
+  margin-bottom: 0;
+}
+
+/* ~~~
+   RESIZER
+   ~~~
+*/
+.fw-resizer {
+  background: linear-gradient(
+    135deg,
+    transparent 30%,
+    #d1d5db 30%,
+    #d1d5db 40%,
+    transparent 40%,
+    transparent 60%,
+    #d1d5db 60%,
+    #d1d5db 70%,
+    transparent 70%
+  );
+  border-radius: 0 0 8px 0;
+  opacity: 0.6;
+  transition: opacity 150ms ease;
+}
+
+.fw-window:hover .fw-resizer,
+.fw-resizer:hover {
+  opacity: 1;
+}
+
+/* ~~~
+   DOCK
+   ~~~
+*/
+.fw-dock {
+  padding: 8px 12px;
+  background: rgba(249, 250, 251, 0.95);
+  border-bottom: 1px solid #e5e7eb;
+  backdrop-filter: blur(8px);
+}
+
+.fw-dock-floating {
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.fw-dock-btn {
+  padding: 6px 12px;
+  background: #ffffff;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 12px;
+  font-family: inherit;
+  color: #374151;
+  cursor: pointer;
+  transition: background 120ms ease, border-color 120ms ease;
+}
+
+.fw-dock-btn:hover {
+  background: #f3f4f6;
+  border-color: #9ca3af;
+}
+
+/* ~~~
+   ANIMATIONS
+   ~~~
+*/
+.fw-window {
+  transition: 
+    opacity 180ms cubic-bezier(0.2, 0.9, 0.2, 1),
+    transform 180ms cubic-bezier(0.2, 0.9, 0.2, 1),
+    box-shadow 180ms ease;
+}
+
+.fw-enter {
+  opacity: 0;
+  transform: translateY(-12px) scale(0.98);
+}
+
+.fw-minimized {
+  opacity: 0;
+  transform: translateY(-8px) scale(0.96);
+  pointer-events: none;
+}
+
+.fw-closing {
+  opacity: 0;
+  transform: translateY(-12px) scale(0.98);
+  transition-duration: 150ms;
+}
+
+/* ~~~
+   FOCUS STATES (Accessibility)
+   ~~~
+*/
+.fw-window:focus {
+  outline: none;
+}
+
+.fw-window:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+.fw-btn:focus {
+  outline: none;
+}
+
+.fw-btn:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 1px;
+}
+
+.fw-dock-btn:focus {
+  outline: none;
+}
+
+.fw-dock-btn:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+/* ~~~
+   SCROLLBAR (This is optional - WebKit only)
+   ~~~
+*/
+.fw-body::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.fw-body::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.fw-body::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 4px;
+}
+
+.fw-body::-webkit-scrollbar-thumb:hover {
+  background: #9ca3af;
+}
+
+/* ~~~
+   DARK MODE (Enabled with: <html class="fw-dark"> or media query)
+   ~~~
+*/
+@media (prefers-color-scheme: dark) {
+  .fw-window {
+    background: #1f2937;
+    border-color: #374151;
+  }
+  
+  .fw-header {
+    background: linear-gradient(to bottom, #374151 0%, #1f2937 100%);
+    border-color: #4b5563;
+  }
+  
+  .fw-title {
+    color: #f9fafb;
+  }
+  
+  .fw-btn {
+    color: #9ca3af;
+  }
+  
+  .fw-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #e5e7eb;
+  }
+  
+  .fw-body {
+    background: #1f2937;
+    color: #e5e7eb;
+  }
+  
+  .fw-resizer {
+    background: linear-gradient(
+      135deg,
+      transparent 30%,
+      #4b5563 30%,
+      #4b5563 40%,
+      transparent 40%,
+      transparent 60%,
+      #4b5563 60%,
+      #4b5563 70%,
+      transparent 70%
+    );
+  }
+  
+  .fw-dock {
+    background: rgba(31, 41, 55, 0.95);
+    border-color: #374151;
+  }
+  
+  .fw-dock-btn {
+    background: #374151;
+    border-color: #4b5563;
+    color: #e5e7eb;
+  }
+  
+  .fw-dock-btn:hover {
+    background: #4b5563;
+  }
+}
+
+/* Manual dark mode class override */
+.fw-dark .fw-window {
+  background: #1f2937;
+  border-color: #374151;
+}
+
+.fw-dark .fw-header {
+  background: linear-gradient(to bottom, #374151 0%, #1f2937 100%);
+  border-color: #4b5563;
+}
+
+.fw-dark .fw-title {
+  color: #f9fafb;
+}
+
+.fw-dark .fw-btn {
+  color: #9ca3af;
+}
+
+.fw-dark .fw-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #e5e7eb;
+}
+
+.fw-dark .fw-body {
+  background: #1f2937;
+  color: #e5e7eb;
+}
+
+.fw-dark .fw-resizer {
+  background: linear-gradient(
+    135deg,
+    transparent 30%,
+    #4b5563 30%,
+    #4b5563 40%,
+    transparent 40%,
+    transparent 60%,
+    #4b5563 60%,
+    #4b5563 70%,
+    transparent 70%
+  );
+}
+
+.fw-dark .fw-dock {
+  background: rgba(31, 41, 55, 0.95);
+  border-color: #374151;
+}
+
+.fw-dark .fw-dock-btn {
+  background: #374151;
+  border-color: #4b5563;
+  color: #e5e7eb;
+}
+
+.fw-dark .fw-dock-btn:hover {
+  background: #4b5563;
+}
