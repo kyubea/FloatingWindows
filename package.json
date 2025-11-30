@@ -1,0 +1,24 @@
+{
+  "name": "floating-windows",
+  "version": "1.0.1",
+  "description": "Lightweight, dependency-free draggable window management",
+  "main": "dist/floating-windows.js",
+  "module": "dist/floating-windows.esm.js",
+  "files": ["dist"],
+  "keywords": [
+    "windows",
+    "draggable",
+    "resizable",
+    "ui",
+    "window-manager",
+    "floating",
+    "desktop"
+  ],
+  "author": "kyubea",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kyubea/floating-windows"
+  },
+  "homepage": "https://github.com/kyubea/floating-windows#readme"
+}
