@@ -329,11 +329,14 @@
       this.bringToFront();
       const header = this.element.querySelector('.fw-header');
       header.style.cursor = 'grabbing';
+      // cache bounds at drag start to avoid race conditions during drag
+      const bounds = this._getBounds();
       this._dragState = {
         startX: clientX,
         startY: clientY,
         origX: parseInt(this.element.style.left, 10) || 0,
-        origY: parseInt(this.element.style.top, 10) || 0
+        origY: parseInt(this.element.style.top, 10) || 0,
+        bounds: bounds
       };
       document.addEventListener('mousemove', this._boundOnMouseMove);
       document.addEventListener('mouseup', this._boundOnMouseUp);
@@ -374,7 +377,8 @@
         const dy = clientY - this._dragState.startY;
         let newX = this._dragState.origX + dx;
         let newY = this._dragState.origY + dy;
-        const bounds = this._getBounds();
+        // use cached bounds from drag start
+        const bounds = this._dragState.bounds;
         newX = utils.clamp(newX, bounds.minLeft, bounds.maxLeft);
         newY = utils.clamp(newY, bounds.minTop, bounds.maxTop);
         this.element.style.left = newX + 'px';
@@ -549,15 +553,10 @@
         edgeMargin: opts.edgeMargin || 4,
         dock: opts.dock || { position: 'top' },
         dockAnchor: opts.dockAnchor || null,
-        injectStyles: opts.injectStyles !== false,
         ...opts
       };
       this.container = typeof this.options.container === 'string'
         ? document.querySelector(this.options.container) : this.options.container;
-      // Ensure container has position for absolute children
-      if (this.container && getComputedStyle(this.container).position === 'static') {
-        this.container.style.position = 'relative';
-      }
       this.windows = new Map();
       this.zCounter = 1000;
       this._shiftPressed = false;
@@ -568,19 +567,10 @@
     }
 
     _init() {
-      if (this.options.injectStyles) this._injectStyles();
       window.addEventListener('keydown', (e) => { if (e.key === 'Shift') this._shiftPressed = true; });
       window.addEventListener('keyup', (e) => { if (e.key === 'Shift') this._shiftPressed = false; });
       window.addEventListener('blur', () => { this._shiftPressed = false; });
       this.dock.init();
-    }
-
-    _injectStyles() {
-      if (document.getElementById('fw-injected-styles')) return;
-      const style = document.createElement('style');
-      style.id = 'fw-injected-styles';
-      style.textContent = `.fw-window{position:absolute;display:flex;flex-direction:column;min-width:120px;min-height:80px;z-index:1000;user-select:none}.fw-header{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-shrink:0}.fw-locked .fw-header{cursor:default}.fw-title{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.fw-controls{display:flex;gap:4px}.fw-btn{cursor:pointer;border:none;background:transparent}.fw-body{flex:1;overflow:auto}.fw-resizer{position:absolute;right:0;bottom:0;width:16px;height:16px;cursor:se-resize}.fw-minimized{opacity:0;pointer-events:none;transform:scale(0.95)}.fw-enter{opacity:0;transform:translateY(-10px)}.fw-closing{opacity:0;transform:translateY(-10px);transition:opacity 150ms,transform 150ms}.fw-window{transition:opacity 180ms,transform 180ms}.fw-dock{display:none}.fw-dock-visible{display:block}.fw-dock-inner{display:flex;gap:6px;flex-wrap:wrap}.fw-dock-floating{position:fixed;right:12px;bottom:12px;z-index:999999}.fw-dock-btn{cursor:pointer}`;
-      document.head.appendChild(style);
     }
 
     _getBounds(winEl) {
